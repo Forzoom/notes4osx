@@ -1,12 +1,14 @@
-### 检测拖拽的文件信息
+### 检测拖拽的文件路径
 
 拖拽是常见的交互形式，在图形化界面中拖拽操作更加直观。
 
 #### 实现NSDraggingDestination
 
+拖拽后的检测主要由NSDraggingDestination实现，NSView已经实现。
+
 1. 调用`registerForDraggedTypes`注册需要监视的类型，如果是拖拽的文件的话，使用`.fileURL`。
 2. 实现`draggingEntered`函数，因为第三步中的函数依赖于该函数返回一个可使用的值。
-3. 拖拽后的检测主要由`NSDraggingDestination`实现，NSView已经实现，使用时只需要重新定义`prepareForDragOperation`即可，在该函数中，可以获取到文件信息。
+3. 重新定义`prepareForDragOperation`，在该函数中，可以获取到文件信息。
 
 #### 示例代码
 
