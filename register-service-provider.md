@@ -1,4 +1,4 @@
-### osx如何注册Service Provider
+### osx开发学习-如何使用Service Provider
 
 osx上的App并非一定要启动GUI界面才可以为用户提供服务，也可以使用`Service Provider`的方式，来提供自己的功能，这样做之后，可以做到在其他App中使用该App的功能。例如，在Finder中的文件选中后，右键点击可以看到“添加到xx笔记”这样的功能。
 
@@ -32,6 +32,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 在`info.plist`文件中，可以向系统注册自己的`Service Provider`，plist文件中所需要的property在文档中有比较详细的说明。但是根据现在xcode中的自动提示，当前的property的显示名字和过去有所不同（虽然本质上仍旧相同），并且过去的部分property好像被删除了。
 
 Apple相关文档: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/SysServices/introduction.html#//apple_ref/doc/uid/10000101-SW1
+
+<img src="./assets/info-plist-setting-example.png">
+
+其中:
+1. Send Types
+    1. NSStringPboardType: 检测到选择了内容是会触发Service
 
 #### 将生成的app文件放入Application文件夹
 

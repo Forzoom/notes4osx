@@ -44,6 +44,7 @@ class DraggableView: NSView {
             print("fileURL:", fileURL)
             let url = URL.init(string: fileURL)
             // 获得的url大致为 file:///Users/xxx/Downloads/test.txt
+            // 如果是是文件夹，大致为 file:///Users/xxx/Downloads/test/
             print("url:", url)
         }
 
