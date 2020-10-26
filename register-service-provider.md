@@ -42,6 +42,11 @@ Apple相关文档: [Services Implementation Guide](https://developer.apple.com/l
 可选数组参数，检测到选取了特定内容时触发。示例中所使用的`NSStringPboardType`即检测到选择了`String`内容时可以触发Service。
 （10.15环境下，文档中注明`NSStringPboardType`被废弃，应该使用`NSPasteboardTypeString`替代，但实际测试中发现`NSStringPboardType`有效，反而是`NSPasteboardTypeString`无效）
 
+##### Return Types
+
+可选数组参数，从service返回给调用者的数据格式，部分调用者可以限定返回的格式，从而决定service是否显示。
+（例如，如果限定返回类型为`NSStringPboardType`，那么这个service就无法显示在Finder的右键菜单中）
+
 #### 测试
 
 因为Service信息只有在用户登录时才会进行一次收集，所以为了测试，不得不频繁登录登出，效率低。官方给出了解决方案
