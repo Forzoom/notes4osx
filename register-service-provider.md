@@ -8,7 +8,7 @@ osx上的App并非一定要启动GUI界面才可以为用户提供服务，也�
 
 ```swift
 class Service: NSObject {
-    public func test(pboard: NSPasteboard) {
+    @objc public func test(_pboard: NSPasteboard, userData: String?, error: AutoreleasingUnsafeMutablePointer<NSString?>) {
         // 示例
         print("this is test function")
     }
@@ -57,3 +57,7 @@ Apple相关文档: [Services Implementation Guide](https://developer.apple.com/l
 ```
 
 更新后需要在“系统偏好设置->键盘->快捷键->服务”中将新创建的服务勾选之后才可以正常使用。
+
+#### 相关内容
+
+[【Stackoverflow】Establish a service in Finder context](https://stackoverflow.com/questions/31404026/establish-a-service-in-finder-context)
