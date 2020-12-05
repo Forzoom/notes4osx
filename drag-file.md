@@ -4,7 +4,7 @@
 
 #### 实现NSDraggingDestination
 
-拖拽后的检测主要由NSDraggingDestination实现，NSView已经实现。
+拖拽后的检测主要由NSDraggingDestination实现，NSView已经实现protocol。
 
 1. 调用`registerForDraggedTypes`注册需要监视的类型，如果是拖拽的文件的话，使用`.fileURL`。
 2. 实现`draggingEntered`函数，因为第三步中的函数依赖于该函数返回一个可使用的值。
@@ -48,6 +48,49 @@ class DraggableView: NSView {
             print("url:", url)
         }
 
+        return true
+    }
+}
+```
+
+#### 在SwiftUI中实现类似效果
+
+SwiftUI中的实现和上面基本相似，只是利用的是`NSItemProvider`来传递数据，承载回调函数内容的是`DropDelegate`protocol。
+
+```swift
+struct MyExampleView: View {
+    var body: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            Button("测试") {
+                print("on click test button")
+            }
+        }.padding(EdgeInsets(top: 40, leading: 0, bottom: 40, trailing: 0))
+        .onDrop(of: [NSPasteboard.PasteboardType.fileURL.rawValue], delegate: MyDropDelegate())
+    }
+}
+```
+
+```swift
+struct MyDropDelegate: DropDelegate {
+    func dropEntered(info: DropInfo) {
+        print("drop entered")
+    }
+    
+    func dropUpdated(info: DropInfo) -> DropProposal? {
+        print("drop updated")
+        return DropProposal(operation: .move)
+    }
+    
+    func performDrop(info: DropInfo) -> Bool {
+        print("perform drop")
+        
+        let items = info.itemProviders(for: [NSPasteboard.PasteboardType.fileURL.rawValue])
+        
+        if items.count > 0 {
+            print(items[0].loadItem(forTypeIdentifier: NSPasteboard.PasteboardType.fileURL.rawValue, options: nil, completionHandler: { (item, error) in
+                print("result is", NSString(data: item as! Data, encoding: String.Encoding.utf8.rawValue))
+            }))
+        }
         return true
     }
 }
